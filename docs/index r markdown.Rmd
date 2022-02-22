@@ -1,0 +1,55 @@
+---
+title: "Assignment_3"
+author: "Hana Pham"
+date: "2/14/2022" 
+output: html_document
+---
+
+```{r setup, include =FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyverse)
+```
+
+## Introduction & Summary Info: 
+
+This report represents data on the inequality within the United States incarceration system. The main goal is to understand how different incarceration measures vary by race. I've chosen to compare the prevalent minority communities (from ages 15 to 64) Black, Latinx, and Asian American & Pacific Islander to the White population. For each, I found the maximum value for the prisoner population. I then evaluated the difference of these maximum values with the maximum value for White prisoners. The purpose was to portray the drastic difference minorities face, compared to white people, in terms of the U.S. prison system. My findings painted a picture that what I had anticipated. The prisoner populations of Black, Latinx, and Asian American & Pacific Islanders showed the disproportionate incarceration of people of color. Another value I reported on was the county with the highest Black prisoner population. I followed that with the value of the maximum number of White prisoners in that same county, and I could see that these two values were not different from one another. Finally, I wanted to focus on the ratio of black prisoners to the total population in comparison to the white prisoner ratio. 
+
+```{r, echo = FALSE}
+source("../docs/analysis.R")
+library(dplyr)
+library(tidyverse)
+```
+
+## *Charts*
+
+#### _*Trends Over Time Chart*_
+This trend chart was the focal point of my questions while looking at the data set of incarceration trends. I was mainly comparing white prisoner populations to minority prisoner populations. This line graph compares black and white prisoner populations from ages 15 to 64. The trajectory of the white prisoners is steadily declining from the year 2000 towards 2010. However, the black prisoner population is _steadily holding._ There is not even a slight change. This visualization draws attention to the *extreme* lack of equality within the prison system, and it portrays the disparities minorities face in the justice system.
+
+```{r trend_chart, echo=FALSE}
+source("../docs/analysis.R")
+library(ggplot2)
+    ggplot(trend_of_white_vs_black_population) + 
+      geom_smooth(mapping = aes(x = year, y = population, fill = race)) +
+      labs(title = "Trends of White vs. Black Prisoner Populations", 
+           x = "Year", y= "Population Number", fill = "Race") 
+```
+
+#### _*Variable Comparison Chart*_ 
+This scatterplot takes another minority population, Latinx, and compares it with the white prisoner population. I included a line with the scatterplot to show the sudden upward incline of the Latinx prisoner population compared to white prisoners. This scatterplot shows a noticeable rise in the population of Latinx in jails. However, along the x-axis, you can see that the white prisoner population stays relatively lower than Latinx. This data comparison is another clear indication of the disproportionate incarceration of minority communities. This visualization also includes data on the concentration of the groups among the U.S. regions. The purpose of that was to show the distribution of prisoner populations. It shows that the West experienced the most frequent Latinx prisoners, and the Northeast region.
+
+``` {r, echo = FALSE}
+source("../docs/analysis.R")
+library(ggplot2)
+ggplot(white_vs_latinx_population) + 
+    geom_point(mapping = aes(x= white_pop_15to64, y = latinx_pop_15to64, color = region)) + 
+    labs(title = "Latinx vs. White Prisoner Population",
+         x = "White Population", y ="Latinx Population", color = "Region") +
+    geom_smooth(mapping = aes(x = white_pop_15to64, y = latinx_pop_15to64))
+```
+
+
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

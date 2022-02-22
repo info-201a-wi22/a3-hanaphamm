@@ -9,7 +9,7 @@ In this assignment, you'll create the necessary files to perform the analysis de
 * The `index.Rmd` and, if needed, other `.Rmd` and `.HTML` files should go into the `/docs`
 
 #### Webserver set-up
-* Once you have completed your report, make sure to **change your repository settings** so that you can view the hosted website,  which will be available at:
+* Once you have completed your report, make sure to **change your repository settings** so that you can view the hosted website,  which will be available at:  
 > https://ORGANIZATION_NAME.github.io/REPO_NAME
 >
 >where ORGANIZATION_NAME is your GitHub User ID and REPO_NAME is the name of the assignment (e.g., `a3-dghendry`)
