@@ -109,17 +109,19 @@
 # Map: show how a variable is distributed geographically
 
   `minority_population` <- incarceration_trends %>%
-    select(black_pop_15to64, state) %>%
-    rename(region = state)
-  
-  mapdata <- map_data("state")
-  mapdata <- left_join(mapdata, minority_population, by ="region")
+    drop_na() %>%
+    select(fips, black_pop_15to64, county_name) 
   
   
+  `mapdata` <- map_data("county") %>%
+    unite(polyname, region, subregion, sep = ",") %>%
+    left_join(county.fips, by = "polyname") 
   
   
-  
-  
+  `map_data1` <- mapdata %>%
+    left_join(minority_population, by = "fips") 
+    
+    
   `blank_theme` <- theme_bw()+
     theme(
       axis.line = element_blank(),
@@ -131,4 +133,16 @@
       panel.grid.minor = element_blank(),
       panel.border = element_blank()
     ) 
+  
+   `map` <- ggplot(map_data1) +
+    geom_polygon(
+      mapping = aes(x = long, y = lat, group = group, fill = black_pop_15to64),
+      color = "gray",
+      size = 0.3) +
+    coord_map() + 
+    scale_fill_continuous(limits = c(0,max(map_data1$black_pop_15to64)), na.value = "white", low = "yellow", high = "red") +
+    labs(title = "Black Prisoner Population in the US", fill = "Black Prisoner Population") +
+    blank_theme 
+  
+  
   
